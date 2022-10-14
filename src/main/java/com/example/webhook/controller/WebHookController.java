@@ -48,18 +48,18 @@ public class WebHookController {
 	 */
 
 	@GetMapping("/webhooks")
-	public ResponseEntity<String> webHook1( @RequestParam(required=false) Map<String,String> qparams, HttpServletRequest request, HttpServletResponse httpResp) {
+	public ResponseEntity<Object> webHook1( @RequestParam(required=false) Map<String,String> qparams, HttpServletRequest request, HttpServletResponse httpResp) {
 		String hubMode = qparams.get("hub.mode");
 		String challenge = qparams.get("hub.challenge");
 		String token = qparams.get("hub.verify_token");
-		System.out.println("hubMode : " + hubMode + "challenge : " + challenge + "verify_token : " + token);
+		//System.out.println("hubMode : " + hubMode + " challenge : " + challenge + " verify_token : " + token);
 
 		
 			if (hubMode.equals("subscribe") && token.equals(myToken)) {
-				return new ResponseEntity<String>(challenge, HttpStatus.OK);
+				return new ResponseEntity<Object>(challenge, HttpStatus.OK);
 
 			} else {
-				return new ResponseEntity<String>(challenge, HttpStatus.FORBIDDEN);
+				return new ResponseEntity<Object>(challenge, HttpStatus.FORBIDDEN);
 			}
 
 		}
