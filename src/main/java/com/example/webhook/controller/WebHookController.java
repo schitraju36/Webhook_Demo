@@ -47,7 +47,7 @@ public class WebHookController {
 	 * return new ResponseEntity<String >(mode, HttpStatus.OK); }
 	 */
 
-	@GetMapping("/webhooks")
+	@PostMapping("/webhooks")
 	public ResponseEntity<Object> webHook1( @RequestParam(required=false) Map<String,String> qparams, HttpServletRequest request, HttpServletResponse httpResp) {
 		String hubMode = qparams.get("hub.mode");
 		String challenge = qparams.get("hub.challenge");
