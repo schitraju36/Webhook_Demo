@@ -52,10 +52,10 @@ public class WebHookController {
 		String hubMode = qparams.get("hub.mode");
 		String challenge = qparams.get("hub.challenge");
 		String token = qparams.get("hub.verify_token");
-		System.out.println("hubMode :" + hubMode + "challenge :" + challenge + "verify_token :" + token);
+		System.out.println("hubMode : " + hubMode + "challenge : " + challenge + "verify_token : " + token);
 
 		
-			if (hubMode.equals("subscrbe") && token.equals(myToken)) {
+			if (hubMode.equals("subscribe") && token.equals(myToken)) {
 				return new ResponseEntity<String>(challenge, HttpStatus.OK);
 
 			} else {
