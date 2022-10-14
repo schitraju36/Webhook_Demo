@@ -31,11 +31,12 @@ public class WebHookController {
 	@Value("${MYTOKEN}")
 	private String myToken;
 
-	@PostMapping // http://localhost:8080/api/webhook
-	public ResponseEntity<String> print(@RequestBody String requestBody) {
-		System.out.println("###### Webhook #####" + requestBody);
-		return new ResponseEntity<String>(requestBody, HttpStatus.OK);
-	}
+	/*
+	 * @PostMapping // http://localhost:8080/api/webhook public
+	 * ResponseEntity<String> print(@RequestBody String requestBody) {
+	 * System.out.println("###### Webhook #####" + requestBody); return new
+	 * ResponseEntity<String>(requestBody, HttpStatus.OK); }
+	 */
 
 	/*
 	 * @GetMapping("/webhooks/{mode}/{challenge}/{token}") public
@@ -47,21 +48,20 @@ public class WebHookController {
 	 * return new ResponseEntity<String >(mode, HttpStatus.OK); }
 	 */
 
-	@PostMapping("/webhooks")
-	public ResponseEntity<Object> webHook1( @RequestParam(required=false) Map<String,String> qparams, HttpServletRequest request, HttpServletResponse httpResp) {
+	@PostMapping("/webhook")
+	public ResponseEntity<Object> webHook(@RequestParam(required = false) Map<String, String> qparams) {
 		String hubMode = qparams.get("hub.mode");
 		String challenge = qparams.get("hub.challenge");
 		String token = qparams.get("hub.verify_token");
-		//System.out.println("hubMode : " + hubMode + " challenge : " + challenge + " verify_token : " + token);
+		// System.out.println("hubMode : " + hubMode + " challenge : " + challenge + "
+		// verify_token : " + token);
 
-		
-			if (hubMode.equals("subscribe") && token.equals(myToken)) {
-				return new ResponseEntity<Object>(challenge, HttpStatus.OK);
+		if (hubMode.equals("subscribe") && token.equals(myToken)) {
+			return new ResponseEntity<Object>(challenge, HttpStatus.OK);
 
-			} else {
-				return new ResponseEntity<Object>(challenge, HttpStatus.FORBIDDEN);
-			}
-
+		} else {
+			return new ResponseEntity<Object>(challenge, HttpStatus.FORBIDDEN);
 		}
-	
+	}
+
 }
