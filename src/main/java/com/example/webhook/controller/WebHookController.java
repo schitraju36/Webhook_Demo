@@ -49,13 +49,13 @@ public class WebHookController {
 	 */
 
 	@PostMapping("/webhook")
-	public ResponseEntity<Object> webHook(@RequestParam(required = false) Map<String, String> qparams) {
+	public ResponseEntity<Object> testHook(@RequestParam(required = false) Map<String, String> qparams, HttpServletRequest request) {
 		String hubMode = qparams.get("hub.mode");
 		String challenge = qparams.get("hub.challenge");
 		String token = qparams.get("hub.verify_token");
 		// System.out.println("hubMode : " + hubMode + " challenge : " + challenge + "
 		// verify_token : " + token);
-
+		System.out.println(request.getQueryString());
 		if (hubMode.equals("subscribe") && token.equals(myToken)) {
 			return new ResponseEntity<Object>(challenge, HttpStatus.OK);
 
